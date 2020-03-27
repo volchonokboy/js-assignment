@@ -1,3 +1,8 @@
+_createRight = createRight;
+_createGroup = createGroup;
+createRight = (function () {var counter = 0; return function(){ counter ++; return _createRight(counter + [])}}());
+createGroup = (function () {var counter = 0; return function(){ counter ++; return _createGroup(counter + [])}}());
+
 var entities = [{
 	name: "user",
 	create: (function () {var counter = 0; return function(){ counter ++; return createUser(counter + [], counter + [])}}()),

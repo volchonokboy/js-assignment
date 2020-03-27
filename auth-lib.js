@@ -1,37 +1,52 @@
-function createUser() {};
+// Возвращает массив всех пользователей.
+function users() {}
 
-function deleteUser() {};
+//Создает нового пользователя с указанным логином username и паролем password, возвращает созданного пользователя.
+function createUser(name, password) {}
 
-function users() {};
+// Удаляет пользователя user
+function deleteUser(user) {}
 
-function createGroup() {};
+// Возвращает массив групп, к которым принадлежит пользователь user
+function userGroups(user) {}
 
-function deleteGroup() {};
+// Добавляет пользователя user в группу group
+function addUserToGroup(user, group) {}
 
-function groups() {};
+// Удаляет пользователя user из группы group. Должна бросить исключение, если пользователя user нет в группе group
+function removeUserFromGroup(user, group) {}
 
-function addUserToGroup() {};
+// Возвращает массив прав
+function rights() {}
 
-function userGroups() {};
+// Создает новое право с именем name и возвращает его
+function createRight(name) {}
 
-function removeUserFromGroup() {};
+// Удаляет право right
+function deleteRight(right) {}
 
-function createRight() {};
+// Возвращает массив групп
+function groups() {}
 
-function deleteRight() {};
+// Создает новую группу и возвращает её.
+function createGroup(name) {}
 
-function groupRights() {};
+// Удаляет группу group
+function deleteGroup(group) {}
 
-function rights() {};
+// Возвращает массив прав, которые принадлежат группе group
+function groupRights() {}
 
-function addRightToGroup() {};
+// Добавляет право right к группе group
+function addRightToGroup() {}
 
-function removeRightFromGroup() {};
+// Удаляет право right из группы group. Должна бросить исключение, если права right нет в группе group
+function removeRightFromGroup() {}
 
-function login(username, password) {};
+function login(username, password) {}
 
-function currentUser() {};
+function currentUser() {}
 
-function logout() {};
+function logout() {}
 
-function isAuthorized(user, right) {};
+function isAuthorized(user, right) {}
