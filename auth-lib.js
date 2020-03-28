@@ -44,7 +44,28 @@ function userGroups(user) {
 }
 
 // Добавляет пользователя user в группу group
-function addUserToGroup(user, group) {}
+function addUserToGroup(user, group) {
+    let checkBox = 0;
+    if (!!user && !!group) {
+        for (let i = 0; i < allUsers.length; i++) {
+            if (allUsers[i].username == user) {
+                for (let j = 0; j < allGroups.length; j++) {
+                    if (allGroups[j].name == group.name) {
+                        allUsers[i].groups.push(group);
+                        ++checkBox;
+                        break;
+                    } else if (j == allGroups.length - 1 && checkBox == 0) {
+                        throw new Error("Такой группы нет");
+                    };
+                };
+            } else if (i == allUsers.length - 1 && checkBox == 0) {
+                throw new Error("нет такого пользователя");
+            };
+        };
+    } else {
+        throw new Error("Плохой аргумент");
+    };
+}
 
 // Удаляет пользователя user из группы group. Должна бросить исключение, если пользователя user нет в группе group
 function removeUserFromGroup(user, group) {}
@@ -77,8 +98,8 @@ function groups() {
 }
 
 // Создает новую группу и возвращает её.
-function createGroup() {
-    allGroups.push({ name: [], right: [] });
+function createGroup(group) {
+    allGroups.push({ name: group, right: [] });
     return allGroups[allGroups.length - 1];
 }
 
@@ -94,9 +115,9 @@ function deleteGroup(group) {
 }
 
 // Возвращает массив прав, которые принадлежат группе group
-function groupRights() {
+function groupRights(name) {
     for (let i = 0; i < allGroups.length; i++) {
-        if (name == allGroups[i].name) {
+        if (name.name == allGroups[i].name) {
             return allGroups[i].right;
         };
     };
