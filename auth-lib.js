@@ -85,8 +85,8 @@ function createGroup(name) {
 // Удаляет группу group
 function deleteGroup(group) {
     let checkGroup = groups();
-    if (checkGroup.includes(name)) {
-        allGroups.splice(checkGroup.indexOf(name), 1)
+    if (checkGroup.includes(group)) {
+        allGroups.splice(checkGroup.indexOf(group), 1)
     } else {
         throw new Error('Нельзя выполнить это действие.');
     };
