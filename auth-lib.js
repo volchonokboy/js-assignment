@@ -12,7 +12,7 @@ function users() {
 }
 
 //Создает нового пользователя с указанным логином username и паролем password, возвращает созданного пользователя.
-function createUser(name, password) {
+function createUser(name, pass) {
     let checkUser = users();
     if (checkUser.includes(name) == false) {
         let user = { username: name, password: pass, groups: ["basic"] };
