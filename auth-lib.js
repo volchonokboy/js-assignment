@@ -77,8 +77,8 @@ function groups() {
 }
 
 // Создает новую группу и возвращает её.
-function createGroup(name) {
-    allGroups.push({ name: name, right: [] });
+function createGroup() {
+    allGroups.push({ name: [], right: [] });
     return allGroups[allGroups.length - 1];
 }
 
@@ -94,7 +94,7 @@ function deleteGroup(group) {
 }
 
 // Возвращает массив прав, которые принадлежат группе group
-function groupRights(name) {
+function groupRights() {
     for (let i = 0; i < allGroups.length; i++) {
         if (name == allGroups[i].name) {
             return allGroups[i].right;
