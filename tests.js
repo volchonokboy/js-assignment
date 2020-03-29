@@ -11,7 +11,7 @@ var entities = [{
     getAll: users,
     addToGroup: addUserToGroup,
     removeFromGroup: removeUserFromGroup,
-    inGroup: function(user, group) { return userGroups(user).indexOf(group) != -1; }
+    inGroup: function(user, group) { return userGroups(user).indexOf(group.name) != -1; }
 }, {
     name: "right",
     create: createRight,
@@ -20,7 +20,7 @@ var entities = [{
     getAll: rights,
     addToGroup: addRightToGroup,
     removeFromGroup: removeRightFromGroup,
-    inGroup: function(right, group) { return groupRights(group).indexOf(right) != -1; }
+    inGroup: function(right, group) { return groupRights(group).indexOf(right[0]) != -1; }
 }, {
     name: "group",
     create: createGroup,
