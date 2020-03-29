@@ -1,6 +1,7 @@
 var allUsers = [];
 var right = [];
 var allGroups = [];
+var userOnline = "";
 
 // Возвращает массив всех пользователей.
 function users() {
@@ -204,10 +205,24 @@ function removeRightFromGroup(rightName, group) {
     };
 }
 
-function login(username, password) {}
+function login(user, pass) {
+    for (let i = 0; i < allUsers.length; i++) {
+        if (allUsers[i].username === user && allUsers[i].password === pass && userOnline.length == 0) {
+            userOnline = user;
+            return true;
+        };
+    };
+    return false;
+}
 
-function currentUser() {}
+function currentUser() {
+    if (userOnline.length > 0) {
+        return userOnline;
+    }
+}
 
-function logout() {}
+function logout() {
+    userOnline = "";
+}
 
 function isAuthorized(user, right) {}
