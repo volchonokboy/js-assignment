@@ -186,8 +186,8 @@ function removeRightFromGroup(rightName, group) {
         if (right.includes(rightName)) {
             for (let i = 0; i < allGroups.length; i++) {
                 if (allGroups[i].name == group.name) {
-                    if (allGroups[i].right > 0) {
-                        allGroups[i].right.splice(allGroups[i].right.indexOf(rightName), 1);
+                    if (allGroups[i].right != 0) {
+                        allGroups[i].right.splice(allGroups[i].right.indexOf(rightName[0]), 1);
                         ++checkBox;
                         break;
                     } else {
@@ -225,4 +225,25 @@ function logout() {
     userOnline = "";
 }
 
-function isAuthorized(user, right) {}
+function isAuthorized(user, rightName) {
+    if (!!user && !!rightName) {
+        let checkUser = users();
+        if (right.includes(rightName) && checkUser.includes(user)) {
+            for (let i = 0; i < allUsers[checkUser.indexOf(user)].groups.length; i++) {
+                let checkRight = groupRights({ name: allUsers[checkUser.indexOf(user)].groups[i] });
+                for (let j = 0; j < checkRight.length; j++) {
+                    if (checkRight[j] == rightName) {
+                        return true;
+                    };
+                };
+                if (i == allUsers[checkUser.indexOf(user)].groups.length - 1) {
+                    return false;
+                };
+            };
+        } else {
+            throw new Error("нет такого право");
+        };
+    } else {
+        throw new Error("Плохой аргумент");
+    };
+}
