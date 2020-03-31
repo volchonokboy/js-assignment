@@ -1,5 +1,5 @@
 var allUsers = [];
-var right = [];
+var allRight = [];
 var allGroups = [];
 var userOnline = "";
 
@@ -51,8 +51,8 @@ function addUserToGroup(user, group) {
         for (let i = 0; i < allUsers.length; i++) {
             if (allUsers[i].username == user) {
                 for (let j = 0; j < allGroups.length; j++) {
-                    if (allGroups[j].name == group.name) {
-                        allUsers[i].groups.push(group.name);
+                    if (allGroups[j].name == group) {
+                        allUsers[i].groups.push(group);
                         ++checkBox;
                         break;
                     } else if (j == allGroups.length - 1 && checkBox == 0) {
@@ -75,7 +75,7 @@ function removeUserFromGroup(user, group) {
         for (let i = 0; i < allUsers.length; i++) {
             if (allUsers[i].username == user) {
                 for (let j = 0; j <= allUsers[i].groups.length; j++) {
-                    if (allUsers[i].groups[j] == group.name) {
+                    if (allUsers[i].groups[j] == group) {
                         allUsers[i].groups.splice(j, 1);
                         ++checkBox;
                         break;
@@ -94,23 +94,23 @@ function removeUserFromGroup(user, group) {
 
 // Возвращает массив прав
 function rights() {
-    return right;
+    return allRight;
 }
 
 // Создает новое право с именем name и возвращает его
 function createRight(name) {
-    right.push([name]);
-    return right[right.length - 1];
+    allRight.push(name);
+    return allRight[allRight.length - 1];
 }
 
 // Удаляет право right
 function deleteRight(name) {
     let checkRight = rights();
     if (checkRight.includes(name)) {
-        right.splice(checkRight.indexOf(name), 1);
+        allRight.splice(checkRight.indexOf(name), 1);
         for (let i = 0; i < allGroups.length; i++) {
-            if (allGroups[i].right.includes(name[0])) {
-                allGroups[i].right.splice(allGroups[i].right.indexOf(name[0]), 1);
+            if (allGroups[i].right.includes(name)) {
+                allGroups[i].right.splice(allGroups[i].right.indexOf(name), 1);
             };
         };
     } else {
@@ -121,13 +121,17 @@ function deleteRight(name) {
 
 // Возвращает массив групп
 function groups() {
-    return allGroups;
+    let users = [];
+    for (let i = 0; i < allGroups.length; i++) {
+        users[i] = allGroups[i].name
+    }
+    return users;
 }
 
 // Создает новую группу и возвращает её.
 function createGroup(group) {
     allGroups.push({ name: group, right: [] });
-    return allGroups[allGroups.length - 1];
+    return allGroups[allGroups.length - 1].name;
 }
 
 // Удаляет группу group
@@ -136,8 +140,8 @@ function deleteGroup(group) {
     if (checkGroup.includes(group)) {
         allGroups.splice(checkGroup.indexOf(group), 1);
         for (let i = 0; i < allUsers.length; i++) {
-            if (allUsers[i].groups.includes(group.name)) {
-                allUsers[i].groups.splice(allUsers[i].groups.indexOf(group.name), 1);
+            if (allUsers[i].groups.includes(group)) {
+                allUsers[i].groups.splice(allUsers[i].groups.indexOf(group), 1);
             };
         };
     } else {
@@ -149,7 +153,7 @@ function deleteGroup(group) {
 // Возвращает массив прав, которые принадлежат группе group
 function groupRights(name) {
     for (let i = 0; i < allGroups.length; i++) {
-        if (name.name == allGroups[i].name) {
+        if (name == allGroups[i].name) {
             return allGroups[i].right;
         };
     };
@@ -159,18 +163,18 @@ function groupRights(name) {
 function addRightToGroup(rightName, group) {
     let checkBox = 0;
     if (!!rightName && !!group) {
-        for (let i = 0; i < right.length; i++) {
-            if (right[i] == rightName[0]) {
+        for (let i = 0; i < allRight.length; i++) {
+            if (allRight[i] == rightName) {
                 for (let j = 0; j < allGroups.length; j++) {
-                    if (allGroups[j].name == group.name) {
-                        allGroups[j].right.push(rightName[0]);
+                    if (allGroups[j].name == group) {
+                        allGroups[j].right.push(rightName);
                         ++checkBox;
                         break;
                     } else if (j == allGroups.length - 1 && checkBox == 0) {
                         throw new Error("Такой группы нет");
                     };
                 };
-            } else if (i == right.length - 1 && checkBox == 0) {
+            } else if (i == allRight.length - 1 && checkBox == 0) {
                 throw new Error("нет такого право");
             };
         };
@@ -183,11 +187,11 @@ function addRightToGroup(rightName, group) {
 function removeRightFromGroup(rightName, group) {
     let checkBox = 0;
     if (!!rightName && !!group) {
-        if (right.includes(rightName)) {
+        if (allRight.includes(rightName)) {
             for (let i = 0; i < allGroups.length; i++) {
-                if (allGroups[i].name == group.name) {
+                if (allGroups[i].name == group) {
                     if (allGroups[i].right != 0) {
-                        allGroups[i].right.splice(allGroups[i].right.indexOf(rightName[0]), 1);
+                        allGroups[i].right.splice(allGroups[i].right.indexOf(rightName), 1);
                         ++checkBox;
                         break;
                     } else {
@@ -228,9 +232,9 @@ function logout() {
 function isAuthorized(user, rightName) {
     if (!!user && !!rightName) {
         let checkUser = users();
-        if (right.includes(rightName) && checkUser.includes(user)) {
+        if (allRight.includes(rightName) && checkUser.includes(user)) {
             for (let i = 0; i < allUsers[checkUser.indexOf(user)].groups.length; i++) {
-                let checkRight = groupRights({ name: allUsers[checkUser.indexOf(user)].groups[i] });
+                let checkRight = groupRights(allUsers[checkUser.indexOf(user)].groups[i]);
                 for (let j = 0; j < checkRight.length; j++) {
                     if (checkRight[j] == rightName) {
                         return true;
