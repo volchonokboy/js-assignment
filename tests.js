@@ -200,7 +200,7 @@ entities.forEach(function(entity) {
 
 describe("Функция groupRights", function() {
     it("должна вернуть массив", function() {
-        createGroup(name);
+        createGroup();
         groups().forEach(function(group) {
             expect(groupRights(group)).toEqual(jasmine.any(Array));
         });

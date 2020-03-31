@@ -167,15 +167,20 @@ function addRightToGroup(rightName, group) {
             if (allRight[i] == rightName) {
                 for (let j = 0; j < allGroups.length; j++) {
                     if (allGroups[j].name == group) {
-                        allGroups[j].right.push(rightName);
-                        ++checkBox;
-                        break;
+                        if (!allGroups[j].right.includes(rightName)) {
+                            allGroups[j].right.push(rightName);
+                            ++checkBox;
+                            break;
+                        } else {
+                            ++checkBox;
+                            break;
+                        }
                     } else if (j == allGroups.length - 1 && checkBox == 0) {
                         throw new Error("Такой группы нет");
                     };
                 };
             } else if (i == allRight.length - 1 && checkBox == 0) {
-                throw new Error("нет такого право");
+                throw new Error("нет такого права");
             };
         };
     } else {
@@ -195,14 +200,14 @@ function removeRightFromGroup(rightName, group) {
                         ++checkBox;
                         break;
                     } else {
-                        throw new Error("нет такого право в группе");
+                        throw new Error("нет такого права в группе");
                     };
                 } else if (i == allGroups.length - 1 && checkBox == 0) {
                     throw new Error("Такой группы нет");
                 };
             }
         } else {
-            throw new Error("нет такого право");
+            throw new Error("нет такого права");
         };
     } else {
         throw new Error("Плохой аргумент");
@@ -245,7 +250,7 @@ function isAuthorized(user, rightName) {
                 };
             };
         } else {
-            throw new Error("нет такого право");
+            throw new Error("нет такого права или пользователя");
         };
     } else {
         throw new Error("Плохой аргумент");
